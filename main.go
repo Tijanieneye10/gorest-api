@@ -14,6 +14,11 @@ func main() {
 
 	configValues, err := config.LoadConfig()
 
+	//connect db
+	db := config.ConnectDB(configValues.DatabaseURL)
+
+	defer db.Close()
+	
 	if err != nil {
 		log.Fatal(err)
 	}
