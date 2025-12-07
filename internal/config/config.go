@@ -24,6 +24,7 @@ func LoadConfig() (*Config, error) {
 		ServerPort:  getEnv("SERVER_PORT", "8080"),
 		DatabaseURL: getEnv("DATABASE_URL", "database.db"),
 		Environment: getEnv("ENVIRONMENT", "local"),
+		LogLevel:    getEnv("LOG_LEVEL", "info"),
 	}, nil
 }
 

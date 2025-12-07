@@ -30,10 +30,10 @@ func main() {
 
 	server := &http.Server{
 		Addr:    serverAddress,
-		Handler: nil,
+		Handler: mux,
 	}
 
-	err := server.ListenAndServe()
+	err = server.ListenAndServe()
 
 	if err != nil {
 		log.Fatalf("Server failed: %v", err)
