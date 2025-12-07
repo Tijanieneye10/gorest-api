@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func healthHandler() http.HandlerFunc {
+func (h Handler) HealthHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)

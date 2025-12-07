@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/tijanieneye10/restapi/internal/config"
+	"github.com/tijanieneye10/restapi/internal/handlers"
+	"github.com/tijanieneye10/restapi/internal/routes"
 )
 
 func main() {
@@ -13,18 +15,13 @@ func main() {
 	configValues, err := config.LoadConfig()
 
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		_, err := w.Write([]byte("Hello World"))
+	handler := handlers.NewHandler()
 
-		if err != nil {
-
-			panic(err)
-		}
-	})
+	routes.SetupRoutes(mux, handler)
 
 	serverAddress := fmt.Sprintf(":%s", configValues.ServerPort)
 
