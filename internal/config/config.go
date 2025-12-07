@@ -11,6 +11,7 @@ type Config struct {
 	ServerPort  string
 	DatabaseURL string
 	Environment string
+	LogLevel    string
 }
 
 func LoadConfig() (*Config, error) {
