@@ -8,6 +8,7 @@ import (
 	"github.com/tijanieneye10/restapi/internal/config"
 	"github.com/tijanieneye10/restapi/internal/handlers"
 	"github.com/tijanieneye10/restapi/internal/routes"
+	"github.com/tijanieneye10/restapi/internal/store"
 )
 
 func main() {
@@ -18,13 +19,15 @@ func main() {
 	db := config.ConnectDB(configValues.DatabaseURL)
 
 	defer db.Close()
-	
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	mux := http.NewServeMux()
 
-	handler := handlers.NewHandler()
+	queries := store.New(db)
+
+	handler := handlers.NewHandler(db, queries)
 
 	routes.SetupRoutes(mux, handler)
 

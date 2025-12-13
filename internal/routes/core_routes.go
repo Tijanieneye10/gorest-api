@@ -8,4 +8,5 @@ import (
 
 func SetupRoutes(mux *http.ServeMux, handlers *handlers.Handler) {
 	SetupHealthRoute(mux, handlers)
+	SetupUserRoutes(mux, handlers)
 }

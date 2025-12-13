@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/tijanieneye10/restapi/internal/dtos"
@@ -28,7 +27,8 @@ func (h Handler) CreateUser() http.HandlerFunc {
 		})
 
 		if err != nil {
-			log.Fatalf("error %v", err.Error())
+			utils.ErrorResponse(w, "invalid request", err.Error(), http.StatusBadRequest)
+			return
 		}
 
 		utils.SuccessResponse(w, "User Created successfully", user, http.StatusCreated)
