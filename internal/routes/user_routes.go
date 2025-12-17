@@ -8,4 +8,5 @@ import (
 
 func SetupUserRoutes(mux *http.ServeMux, h *handlers.Handler) {
 	mux.HandleFunc("POST /register", h.CreateUser())
+	mux.HandleFunc("POST /login", h.Login())
 }

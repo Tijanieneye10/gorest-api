@@ -13,6 +13,12 @@ SELECT id, username, email, created_at, updated_at
 FROM users
 ORDER BY id;
 
+-- name: GetUserByEmailOrUsername :one
+SELECT id, username, email, password, created_at, updated_at
+FROM users
+WHERE $1 IN (email, username)
+LIMIT 1;
+
 -- name: CreateBlog :one
 INSERT INTO blogs(title, content, user_id, created_at, updated_at)
 VALUES($1, $2, $3, $4, $5)

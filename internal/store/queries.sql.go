@@ -112,6 +112,27 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (GetUserRow, error) {
 	return i, err
 }
 
+const getUserByEmailOrUsername = `-- name: GetUserByEmailOrUsername :one
+SELECT id, username, email, password, created_at, updated_at
+FROM users
+WHERE $1 IN (email, username)
+LIMIT 1
+`
+
+func (q *Queries) GetUserByEmailOrUsername(ctx context.Context, email string) (User, error) {
+	row := q.queryRow(ctx, q.getUserByEmailOrUsernameStmt, getUserByEmailOrUsername, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Email,
+		&i.Password,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const listBlogs = `-- name: ListBlogs :many
 SELECT id, title, content, created_at, updated_at
 FROM blogs
